@@ -1,0 +1,28 @@
+services:
+  app:
+    image: santoshkumar711/bookshop-app:v1
+    container_name: bookshop-app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_NAME=bookstore
+      - DB_USER=root
+      - DB_PASSWORD=santoor711
+
+  db:
+    image: mariadb:10.6
+    container_name: bookshop-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: santoor711
+      MYSQL_DATABASE: bookstore
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:

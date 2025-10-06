@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookshop-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bookshop-app
+  template:
+    metadata:
+      labels:
+        app: bookshop-app
+    spec:
+      containers:
+      - name: bookshop-app
+        image: santoshkumar711/bookshop-app:v1  # apni Docker image ka naam yahan
+        ports:
+        - containerPort: 8000
+        env:
+        - name: MYSQL_HOST
+          value: "mariadb"
+        - name: MYSQL_USER
+          value: "store"
+        - name: MYSQL_PASSWORD
+          value: "santoor711"
+        - name: MYSQL_DATABASE
+          value: "book"

@@ -1,0 +1,127 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mariadb-initdb
+data:
+  init.sql: |
+    CREATE DATABASE IF NOT EXISTS book;
+
+    USE book;
+
+    CREATE TABLE auth_user (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(150) UNIQUE NOT NULL,
+    email VARCHAR(254),
+    password VARCHAR(128) NOT NULL,
+    is_staff BOOLEAN DEFAULT 0,
+    is_active BOOLEAN DEFAULT 1,
+    is_superuser BOOLEAN DEFAULT 0,
+    date_joined DATETIME
+    );
+
+    CREATE TABLE auth_group (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(150) UNIQUE NOT NULL
+    );
+
+    CREATE TABLE auth_permission (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    codename VARCHAR(100) NOT NULL
+    );
+
+    CREATE TABLE auth_user_groups (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    group_id INT,
+    FOREIGN KEY (user_id) REFERENCES auth_user(id),
+    FOREIGN KEY (group_id) REFERENCES auth_group(id)
+    );
+
+    CREATE TABLE auth_user_user_permissions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    permission_id INT,
+    FOREIGN KEY (user_id) REFERENCES auth_user(id),
+    FOREIGN KEY (permission_id) REFERENCES auth_permission(id)
+    );
+
+    CREATE TABLE django_content_type (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    app_label VARCHAR(100),
+    model VARCHAR(100)
+    );
+
+    CREATE TABLE django_admin_log (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    action_time DATETIME,
+    object_id TEXT,
+    object_repr VARCHAR(200),
+    action_flag INT,
+    change_message TEXT,
+    user_id INT,
+    content_type_id INT,
+    FOREIGN KEY (user_id) REFERENCES auth_user(id),
+    FOREIGN KEY (content_type_id) REFERENCES django_content_type(id)
+    );
+
+    CREATE TABLE django_session (
+    session_key VARCHAR(40) PRIMARY KEY,
+    session_data TEXT,
+    expire_date DATETIME
+    );
+
+    CREATE TABLE order_order (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    created_at DATETIME,
+    status VARCHAR(50),
+    FOREIGN KEY (user_id) REFERENCES auth_user(id)
+    );
+
+    CREATE TABLE order_orderitem (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT,
+    book_id INT,
+    quantity INT,
+    FOREIGN KEY (order_id) REFERENCES order_order(id),
+    FOREIGN KEY (book_id) REFERENCES store_book(id)
+    );
+
+    CREATE TABLE store_category (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(200) NOT NULL
+    );
+
+    CREATE TABLE store_writer (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(200) NOT NULL
+    );
+
+    CREATE TABLE store_book (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(200) NOT NULL,
+    category_id INT,
+    writer_id INT,
+    price DECIMAL(10,2),
+    FOREIGN KEY (category_id) REFERENCES store_category(id),
+    FOREIGN KEY (writer_id) REFERENCES store_writer(id)
+    );
+
+    CREATE TABLE store_review (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    book_id INT,
+    user_id INT,
+    comment TEXT,
+    rating INT,
+    FOREIGN KEY (book_id) REFERENCES store_book(id),
+    FOREIGN KEY (user_id) REFERENCES auth_user(id)
+    );
+
+    CREATE TABLE store_slider (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(200),
+    image VARCHAR(255)
+    );
+ 
+
