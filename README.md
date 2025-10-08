@@ -60,21 +60,28 @@ docker-compose up -d
 ☸️ Run Application with Kubernetes
 
 Kubernetes setup uses Database3 (MariaDB).
+
 Make sure you are in the /bookstore folder before applying YAML files.
 
 # Apply MariaDB and BookShop configurations
 kubectl apply -f mariadb-deployment.yml
+
 kubectl apply -f mariadb-initdb.yml
+
 kubectl apply -f mariadb-service.yml
+
 kubectl apply -f bookshop-deployment.yml
+
 kubectl apply -f bookshop-service.yml
 
 # Start services (if required)
 kubectl start bookshop-service
+
 kubectl start mariadb-service
 
 # Check pods and services
 kubectl get pods
+
 kubectl get svc
 
 🔐 Superuser Access
