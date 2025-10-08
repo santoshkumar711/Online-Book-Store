@@ -67,26 +67,26 @@ WSGI_APPLICATION = 'bookstore.wsgi.application'
 
 
 # ✅ Database Configuration (SQLite for testing)
-DATABASES = {
- 'default': {
-      'ENGINE': 'django.db.backends.sqlite3',
-     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-   }
-}
-# Database2 [This database defined docker-compose]
 #DATABASES = {
- #   'default': {
- #       'ENGINE': 'django.db.backends.mysql',
- #     'NAME': 'bookstore',
- #      'USER': 'root',
- #      'PASSWORD': 'santoor711',
- #      'HOST': 'db',        # docker-compose me service name
- #       'PORT': '3306',
- #       'OPTIONS': {
- #           'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
- #       }
- #   }
- #  }  ///
+# 'default': {
+#      'ENGINE': 'django.db.backends.sqlite3',
+#     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#  }
+#}
+# Database2 [This database defined docker-compose]
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+      'NAME': 'bookstore',
+       'USER': 'root',
+       'PASSWORD': 'santoor711',
+       'HOST': 'db',        # docker-compose me service name
+        'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        }
+    }
+   } 
  #  Database3 [This database define kubernities database mariadb]
 #DATABASES = {
 #    'default': {
