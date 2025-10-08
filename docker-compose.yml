@@ -1,6 +1,6 @@
 services:
   app:
-    image: santoshkumar711/bookshop-app:v1
+    image: santoshkumar711/bookshop-app:v2
     container_name: bookshop-app
     ports:
       - "8000:8000"
