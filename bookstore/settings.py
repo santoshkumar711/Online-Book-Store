@@ -135,3 +135,5 @@ MESSAGE_TAGS = {
 }
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+ALLOWED_HOSTS = ['*']
+
