@@ -45,8 +45,12 @@ Open your browser at: http://127.0.0.1:8080/
 The Docker Compose setup uses Database2 (MariaDB).
 
 # Start services
+docker-compose build
 docker-compose up -d
 
+# Table Create then its work 
+ python manage.py makemigration 
+ python manage.py migrate 
 # View running containers
 docker ps
 
